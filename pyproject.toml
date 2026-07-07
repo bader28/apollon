@@ -69,3 +69,9 @@ build-frontend = "build"
 
 [tool.cibuildwheel.macos]
 archs = ["universal2"]
+
+# cp312/cp313 currently fail to build on manylinux (they build fine on
+# Windows/macOS). Restrict the Linux wheels to cp39-cp311 for now; cp312/cp313
+# Linux users install from the sdist until this is resolved.
+[tool.cibuildwheel.linux]
+build = "cp39-* cp310-* cp311-*"
