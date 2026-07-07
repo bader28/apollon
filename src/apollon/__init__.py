@@ -7,9 +7,20 @@ Apollon feature extraction framework.
 """
 
 import os as _os
-import pkg_resources as _pkg
 
+try:
+    from importlib.metadata import version as _version, PackageNotFoundError
+except ImportError:                       # Python < 3.8 fallback
+    from importlib_metadata import version as _version, PackageNotFoundError
 
-__version__ = _pkg.get_distribution('apollon').version
+# The PyPI distribution is named "bader-apollon" (the original "apollon" is
+# owned by the upstream project); fall back to "apollon" for older installs.
+try:
+    __version__ = _version("bader-apollon")
+except PackageNotFoundError:
+    try:
+        __version__ = _version("apollon")
+    except PackageNotFoundError:
+        __version__ = "0.1.5"
 
 APOLLON_PATH = _os.path.dirname(_os.path.realpath(__file__))

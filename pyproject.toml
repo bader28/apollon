@@ -44,6 +44,18 @@ Documentation = "https://codeberg.org/rbader/apollon"
 requires = ["setuptools", "wheel", "numpy>=2.0"]
 build-backend = "setuptools.build_meta"
 
+# Ship the JSON schema files (src/apollon/schema/*.json) inside the wheel.
+# Previously these data files were missing from built wheels, which made
+# `import apollon` fail at runtime with "Schema ... not found".
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+apollon = ["schema/*.json"]
+
 # ---------------------------------------------------------------------------
 # cibuildwheel: builds pre-compiled wheels for Windows / macOS / Linux so that
 # end users can `pip install` without a C compiler. Driven by GitHub Actions

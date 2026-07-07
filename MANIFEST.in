@@ -1,4 +1,4 @@
-graft json
+recursive-include src/apollon/schema *.json
 include *.md
 include LICENSE.txt
 recursive-include include *.h
