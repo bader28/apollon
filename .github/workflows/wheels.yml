@@ -19,6 +19,9 @@ jobs:
   build_wheels:
     name: Wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    # Linux/manylinux builds are still being sorted out; don't let them block
+    # publishing the Windows/macOS wheels. Linux users fall back to the sdist.
+    continue-on-error: ${{ matrix.os == 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
