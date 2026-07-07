@@ -1,6 +1,3 @@
-[![tests](https://github.com/ifsm/apollon/actions/workflows/tests.yml/badge.svg)](
-https://github.com/ifsm/apollon/actions/workflows/tests.yml)
-
 # Apollon
 Apollon is a Python framework for audio feature extraction and music similarity
 estimation. It includes subpackages for
@@ -9,17 +6,31 @@ estimation. It includes subpackages for
 * Hidden Markov Models
 * Self-Organizing Map
 
+This is the fork maintained by **Rolf Bader** (canonical repository on
+[Codeberg](https://codeberg.org/rbader/apollon)). It is the foundation of the
+apollon / chainsaddiction / comsar stack. For the full manual and installation
+guide covering all three packages see the
+[comsar repository](https://codeberg.org/rbader/comsar).
+
 ## 1. Installation
-### 1.1 Install from PyPI
-The latest version of apollon is available on PyPI. Just open a terminal an run
-the following command to download and install apollon:
+### 1.1 Install from PyPI (recommended, no compiler needed)
+Pre-compiled wheels are provided for **Windows, macOS and Linux**
+(CPython 3.9–3.13). Just run:
 
 ```
-pip install apollon
+pip install bader-apollon
 ```
 
-We currently provide wheels for macOS and Windows; GNU/Linux users have to
-build apollon from source.
+The import name is unchanged — you still write `import apollon` in your code.
+
+### 1.2 Install from source
+Building from source requires a C compiler (MSVC Build Tools on Windows, the
+Xcode Command Line Tools on macOS, gcc/clang on Linux) plus NumPy:
+
+```
+pip install .
+```
 
 ## 2. Documentation
-Full [documentation](https://apollon.readthedocs.io) is available on readthedocs.
+See the [comsar manual](https://codeberg.org/rbader/comsar) for the full
+documentation of the whole stack.

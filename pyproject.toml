@@ -1,5 +1,8 @@
 [project]
-name = "apollon"
+# Distribution name on PyPI. The original name "apollon" is owned by the
+# upstream project (ifsm/apollon). This fork is published as "bader-apollon".
+# The import name stays "apollon" (i.e. `import apollon`).
+name = "bader-apollon"
 version = "0.1.5"
 description = "Feature extraction frame work for content-based music analysis"
 authors = [ {name="Michael Blaß", email="mblass@posteo.net"} ]
@@ -30,13 +33,27 @@ dependencies = [
 	"matplotlib >= 2",
 	"pandas >= 0.20",
 	"soundfile >= 0.10.2",
-	"chainsaddiction >= 0.2.1",
+	"bader-chainsaddiction >= 0.2.1",
 ]
 
 [project.urls]
-Repository = "http://github.com/ifsm/apollon"
-Documentation = "https://apollon.readthedocs.io"
+Repository = "https://codeberg.org/rbader/apollon"
+Documentation = "https://codeberg.org/rbader/apollon"
 
 [build-system]
-requires = ["setuptools", "numpy"]
+requires = ["setuptools", "wheel", "numpy>=2.0"]
 build-backend = "setuptools.build_meta"
+
+# ---------------------------------------------------------------------------
+# cibuildwheel: builds pre-compiled wheels for Windows / macOS / Linux so that
+# end users can `pip install` without a C compiler. Driven by GitHub Actions
+# (see .github/workflows/wheels.yml). Building against NumPy 2.x yields wheels
+# that run on NumPy >= 1.23 as well (NumPy 2 backward-compat ABI).
+# ---------------------------------------------------------------------------
+[tool.cibuildwheel]
+build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
+skip = "*-musllinux_* *_i686 *_ppc64le *_s390x"
+build-frontend = "build"
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
