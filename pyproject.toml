@@ -3,7 +3,7 @@
 # upstream project (ifsm/apollon). This fork is published as "bader-apollon".
 # The import name stays "apollon" (i.e. `import apollon`).
 name = "bader-apollon"
-version = "0.1.5"
+version = "0.1.6"
 description = "Feature extraction frame work for content-based music analysis"
 authors = [ {name="Michael Blaß", email="mblass@posteo.net"} ]
 license = { file="LICENSE.txt" }

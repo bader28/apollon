@@ -21,6 +21,6 @@ except PackageNotFoundError:
     try:
         __version__ = _version("apollon")
     except PackageNotFoundError:
-        __version__ = "0.1.5"
+        __version__ = "0.1.6"
 
 APOLLON_PATH = _os.path.dirname(_os.path.realpath(__file__))

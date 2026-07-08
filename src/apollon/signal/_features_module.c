@@ -30,7 +30,7 @@ apollon_correlogram_delay (PyObject* self, PyObject* args)
     PyArrayObject *arr_delays = NULL;
     PyArrayObject *arr_corr   = NULL;
 
-    if (!PyArg_ParseTuple (args, "OOkk", &op_signal, &op_delays, &window_len, &max_offset))
+    if (!PyArg_ParseTuple (args, "OOnn", &op_signal, &op_delays, &window_len, &max_offset))
     {
         return NULL;
     }
@@ -89,7 +89,7 @@ apollon_correlogram (PyObject* self, PyObject* args)
     PyArrayObject *arr_signal = NULL;
     PyArrayObject *arr_corr   = NULL;
 
-    if (!PyArg_ParseTuple (args, "Okk", &op_signal, &window_len, &max_delay))
+    if (!PyArg_ParseTuple (args, "Onn", &op_signal, &window_len, &max_delay))
     {
         return NULL;
     }
@@ -134,7 +134,7 @@ apollon_delay_embedding_dists (PyObject *self, PyObject *args)
     npy_intp  delay = 0;
     npy_intp  m_dim = 0;
 
-    if (!PyArg_ParseTuple (args, "Okk", &inp, &delay, &m_dim))
+    if (!PyArg_ParseTuple (args, "Onn", &inp, &delay, &m_dim))
     {
         return NULL;
     }
@@ -179,7 +179,7 @@ apollon_cdim_bader (PyObject *self, PyObject *args)
     npy_intp  n_bins;
     npy_intp  scaling_size;
 
-    if (!PyArg_ParseTuple (args, "Okkkk", &op_snd, &delay, &m_dim,
+    if (!PyArg_ParseTuple (args, "Onnnn", &op_snd, &delay, &m_dim,
                 &n_bins, &scaling_size))
     {
         return NULL;
