@@ -3,7 +3,7 @@
 # upstream project (ifsm/apollon). This fork is published as "bader-apollon".
 # The import name stays "apollon" (i.e. `import apollon`).
 name = "bader-apollon"
-version = "0.1.6"
+version = "0.1.7"
 description = "Feature extraction frame work for content-based music analysis"
 authors = [ {name="Michael Blaß", email="mblass@posteo.net"} ]
 license = { file="LICENSE.txt" }
@@ -34,6 +34,10 @@ dependencies = [
 	"pandas >= 0.20",
 	"soundfile >= 0.10.2",
 	"bader-chainsaddiction >= 0.2.1",
+	# importlib.resources.files() is stdlib from Python 3.9 on; on 3.7/3.8 fall
+	# back to the backport so the schema loader works there too (replaces the
+	# former implicit setuptools/pkg_resources dependency).
+	"importlib_resources >= 1.3; python_version < '3.9'",
 ]
 
 [project.urls]

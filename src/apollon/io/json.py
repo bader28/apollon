@@ -15,11 +15,21 @@ Functions:
 """
 import json
 import pathlib
-import pkg_resources
 from typing import Any, Union
 
 import jsonschema
 import numpy as np
+
+# ``importlib.resources`` replaces the deprecated/removed ``pkg_resources``
+# (setuptools). ``importlib.resources.files`` is in the standard library from
+# Python 3.9 on, so this works on every supported interpreter without
+# requiring setuptools to be installed at run time (setuptools is no longer
+# shipped by default in Python >= 3.12 virtual environments, which used to make
+# ``import apollon`` -- and therefore ``import comsar`` -- fail here).
+try:
+    from importlib.resources import files as _res_files          # Python >= 3.9
+except ImportError:                                              # pragma: no cover
+    from importlib_resources import files as _res_files          # type: ignore
 
 from .. import APOLLON_PATH
 from .. _defaults import SCHEMA_DIR_PATH, SCHEMA_EXT
@@ -41,13 +51,13 @@ def load_schema(schema_name: str) -> dict:
     Raises:
         IOError
     """
-    schema_path = 'schema/' + schema_name + SCHEMA_EXT
-    if pkg_resources.resource_exists('apollon', schema_path):
-        schema = pkg_resources.resource_string('apollon', schema_path)
-        schema = json.loads(schema)
+    schema_file = schema_name + SCHEMA_EXT
+    resource = _res_files('apollon').joinpath('schema').joinpath(schema_file)
+    if resource.is_file():
+        schema = json.loads(resource.read_text(encoding='utf-8'))
         jsonschema.Draft7Validator.check_schema(schema)
         return schema
-    raise IOError(f'Schema ``{schema_path}`` not found.')
+    raise IOError(f'Schema ``schema/{schema_file}`` not found.')
 
 
 def dump(obj: Any, path: PathType) -> None:
